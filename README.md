@@ -29,7 +29,7 @@ Availability is about making sure my work is accessible from anywhere. By pushin
 I use GitHub Personal Access Tokens (PATs) to prove who I am when pushing code. This is safer than using a password.
 
 ## Authorization
-Access to the repository is controlled by permissions and the settings of the PAT. Users only get the access they need (Least Privilege).
+Access to the repository is controlled by permissions and the settings of the PAT. Users only get the access they need to complete their jobs (Least Privilege).
 
 ## Accounting
 Git keeps a history of all changes with `git log`, showing who made each commit and when. Because commits are linked to a verified GitHub account, it’s easy to trace actions back to the user—so no one can deny what they did.
