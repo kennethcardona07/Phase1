@@ -1,3 +1,7 @@
---- FELLOWSHIP LAB REPORT ---
-User: kennethcardona07 | Host: Foundations-Lab
-Thu Feb 26 06:59:02 AM UTC 2026
+--- FELLOWSHIP LAB VERIFICATION REPORT --- echo Timestamp: Thu Feb 26 07:55:57 AM UTC 2026
+User: kennethcardona07
+Hostname: Foundations-Lab
+------------------------------------------ echo [*] Starting System Audit...
+Git: INSTALLED (git version 2.43.0)
+Python3: INSTALLED (Python 3.12.3) else
+Python3: NOT INSTALLED
