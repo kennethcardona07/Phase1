@@ -1,4 +1,3 @@
-ls ~/port_check.py
 import socket 
 targets =["127.0.0.1",
           "8.8.8.8",
