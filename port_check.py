@@ -1,4 +1,4 @@
-import socket 
+ls ~/port_check.pyimport socket 
 targets =["127.0.0.1",
           "8.8.8.8",
           "1.1.1.1",
@@ -24,4 +24,4 @@ for ip in targets:
         print(f"FAILED: Port 22 is CLOSED on {ip}")
    
     # Close the connection
-    s.close()
+   	 s.close()
