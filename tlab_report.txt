@@ -1,0 +1,7 @@
+ip route results: default via 10.0.2.15 dev enp0s3
+tcpdump lines: IP 10.0.2.15.59128 > 192.168.10.193.80: Flags [S], seq 3906766363
+               IP 192.168.10.193.80 > 10.0.2.15.59128: Flags [R.], seq 3906766364
+
+The [R.] flag in the capture proves that my traffic reached 
+the target and the target responded, confirming that both 
+DNS and Routing are fully functional.
