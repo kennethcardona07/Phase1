@@ -1,7 +1,5 @@
-ip route results: default via 10.0.2.15 dev enp0s3
-tcpdump lines: IP 10.0.2.15.59128 > 192.168.10.193.80: Flags [S], seq 3906766363
-               IP 192.168.10.193.80 > 10.0.2.15.59128: Flags [R.], seq 3906766364
-
-The [R.] flag in the capture proves that my traffic reached 
-the target and the target responded, confirming that both 
-DNS and Routing are fully functional.
+ip route results: default via 10.0.2.2 dev enp0s3
+tcpdump lines:
+22:50:33.609315 IP6 ::1.32776 > ::1.8080: Flags [S], seq 1198405163, win 65476, options [mss 65476,sackOK,TS val 674907742 ecr 0,nop,wscale 7], length 0
+22:50:33.609466 IP6 ::1.8080 > ::1.32776: Flags [S.], seq 3193736543, ack 1198405164, win 65464, options [mss 65476,sackOK,TS val 674907742 ecr 674907742,nop,wscale 7], length 0
+22:50:33.609483 IP6 ::1.32776 > ::1.8080: Flags [.], ack 1, win 512, options [nop,nop,TS val 674907742 ecr 674907742], length 0
