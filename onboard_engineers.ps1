@@ -13,4 +13,4 @@ for ($i=1; $i -le 5; $i++) {
     New-ADUser -Name "Eng_User$i" -Path "OU=Engineering,DC=titan,DC=local" -ChangePasswordAtLogon $true
 }
 
-Write-Host "[+] All engineers onboarded successfully."
+Write-Host "[+] All engineers onboarded successfully." 
