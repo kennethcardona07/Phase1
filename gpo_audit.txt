@@ -1,0 +1,25 @@
+# S14 Provisioning: GPO Audit Artifact Seeding
+$TargetDir = "C:\Users\Administrator\Desktop"
+$ArtifactPath = "$TargetDir\gpo_audit.txt"
+
+Write-Host "[*] Initializing Session 14 Environment..." -ForegroundColor Cyan
+
+$Template = @"
+=====================================================
+SESSION 14: GROUP POLICY AUDIT REPORT
+=====================================================
+
+QUESTION 1: What specific command do you run on a client machine to force it to download the latest Group Policy from the Domain Controller?
+ANSWER: gpupdate /force
+
+QUESTION 2: Explain the LSDOU acronym. If a Local Policy says "Enable USB" but the Domain Policy says "Disable USB", which one wins and why?
+ANSWER: LSDOU stands for Local, Site, Domain, and Organizational Unit. In this case Domain Policy wins because it
+is the specific order Windows follows when applying rules. Since Domain comes after Local in the LSDOU sequence, Domain gets the final say and
+overrides anything that comes before it.
+
+QUESTION 3: Why is it best practice to apply GPOs to Organizational Units (OUs) rather than the entire Domain?
+ANSWER: Applying GPOs to an OU ensures that specific restrictions only affect intended users without affecting other departments.
+"@
+
+Set-Content -Path $ArtifactPath -Value $Template
+Write-Host "[+] PROVISIONING COMPLETE. Artifact template seeded at: $ArtifactPath" -ForegroundColor Green
