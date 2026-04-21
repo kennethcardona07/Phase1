@@ -1,0 +1,17 @@
+==================================================
+SESSION 16: READINESS INVENTORY
+==================================================
+Operator: Kenneth Cardona
+Date: 04/20/2026
+
+Confidence Audit (Yes/No):
+1. Nmap (Network Scanning): [Yes]
+2. Docker (Containerization): [Yes]
+3. Linux Hardening (UFW/chmod): [Yes]
+4. VS Code Remote-SSH: [Yes]
+
+Identify your weakest area and your plan to review it:
+My weakest are  was diagnosing Layer 4 port conflicts where the "squatter" was a native OS service (Nginx) rather than a Docker container. This showed me that an error like "port already allocated"
+requires looking at the entire host, not just the container runtime. I will implement sudo ss -tlnp earlier in my troubleshooting flow to verify port availability across both native and 
+containerized environments.
+=================================================
