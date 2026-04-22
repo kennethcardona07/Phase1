@@ -28,29 +28,20 @@ else:
 # Log the result to the protected telemetry file
 with open("/var/log/dc_audit.log", "a") as log_file:
     log_file.write(status + "\n")
-* **Telemetry Path:** `/var/log/sys_audit.log`
+* **Telemetry Path:** `/var/log/dc_audit.log`
 
 ## 3. Containerized App (Docker)
-* **Network Isolation:** 
+* **Network Isolation:** The database (db) is isolated on a custom backend network with the internal: true flag, preventing any direct internet access. The wiki service acts as a secure gateway, 
+bridging the frontend and backend
 * **Stack Health:** 
-version: '3.8'
-services:
-  wiki:
-    image: nginx:latest
-    ports:
-      - "8080:80"
-    networks: [frontend, backend]
-
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: supersecretpassword
-    networks: [backend]
-
-networks:
-  frontend:
-  backend:
-    internal: true
+kennethcardona07_db_1   Up   3306/tcp, 33060/tcp
+kennethcardona07_wiki_1 Up   0.0.0.0:8080->80/tcp
 
 ## 4. Executive Summary
-[Write 3 sentences on the overall security posture of the outpost]
+The Outpost is secured through three defensive layers:
+
+Perimeter: A firewall blocks all unauthorized entry, leaving only necessary management ports open.
+
+Automation: A custom watchdog script monitors the Domain Controller's health 24/7.
+
+Isolation: The database is air-gapped on an internal network, making it invisible to the internet while still allowing the Wiki to function.
