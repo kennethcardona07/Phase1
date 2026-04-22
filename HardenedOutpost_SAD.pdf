@@ -1,0 +1,44 @@
+# TITAN SMALL BUSINESS SERVICES: SECURITY ARCHITECTURE DOCUMENT (SAD)
+**Operator:** Kenneth Cardona
+**Date:** 04/21/2026
+
+## 1. Perimeter Hardening (UFW & SSH)
+* **SSH Status:** Access is granted via Port 22, but the system is secured behind a default-deny policy to prevent unauthorized brute-force attempts
+* **Firewall Logic:** Port 22 (TCP): ALLOW (Required for secure remote management).
+
+Port 8080 (TCP): ALLOW (Required for external access to the Wiki service).
+
+Incoming: DENY (All other unsolicited traffic is blocked by default).
+
+Outgoing: ALLOW (System can still fetch updates and communicate outward).
+## 2. The Automated Auditor (Python)
+* **Script Logic:**
+#!/usr/bin/env python3
+import os
+
+target_ip = "10.0.2.2"
+# Ping the DC 4 times
+response = os.system("ping -c 4 " + target_ip)
+
+if response == 0:
+    status = "DC is UP"
+else:
+    status = "DC is DOWN"
+
+# Log the result to the protected telemetry file
+with open("/var/log/dc_audit.log", "a") as log_file:
+    log_file.write(status + "\n")
+* **Telemetry Path:** `/var/log/dc_audit.log`
+
+## 3. Containerized App (Docker)
+* **Network Isolation:** The database (db) is isolated on a custom backend network with the internal: true flag, preventing any direct internet access. The wiki service acts as a secure gateway,
+ bridging the frontend and backend
+* **Stack Health**
+kennethcardona07_db_1   Up   3306/tcp, 33060/tcp
+kennethcardona07_wiki_1 Up   0.0.0.0:8080->80/tcp
+## 4. Executive Summary
+Perimeter: A firewall blocks all unauthorized entry, leaving only necessary management ports open.
+
+Automation: A custom watchdog script monitors the Domain Controller's health 24/7.
+
+Isolation: The database is air-gapped on an internal network, making it invisible to the internet while still allowing the Wiki to function.
