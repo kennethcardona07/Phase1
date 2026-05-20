@@ -1,5 +1,6 @@
 # OMNI-PORTAL ASSESSMENT REPORT
-**Operator:** **Deadline:** April 5 @ 11:59 PM 
+**Operator:** Kenneth Cardona
+**Deadline:** April 5 @ 11:59 PM 
 
 ## PHASE 1: AUTH BYPASS (SQLi)
 * **Payload Used:** ' OR 1=1 --
