@@ -1,5 +1,6 @@
 # OPERATION FORTRESS: DEFENSE IN DEPTH REPORT
-**Operator:** ## LAYER 1: PERIMETER FIREWALL (iptables)
+**Operator:**
+## LAYER 1: PERIMETER FIREWALL (iptables)
 **Objective:** Block egress to C2 Subnet 198.51.100.0/24
 **Rule Used:** iptables -A OUTPUT -d 198.51.100.0/24 -j DROP
 
