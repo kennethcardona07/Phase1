@@ -1,0 +1,4 @@
+MISSION INTEL:
+- Local DNS is reporting anomalies.
+- A service is 'cloaked' on a non-standard port.
+- Find the truth and report in protocol_audit.txt.
