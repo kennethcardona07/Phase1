@@ -64,13 +64,14 @@ An unauthorized and unencrypted VNC (Virtual Network Computing) remote desktop s
 which revealed TCP port 5901 actively listening to network traffic.
 
 **Remediation Commands:**
+```
 Bash
 docker exec -it server2_ops_1 /bin/bash
 netstat -tulpn | grep 5901
 kill -9 <PID>
 systemctl disable vncserver@:1.service 2>/dev/null || update-rc.d vncserver remove
 exit
-
+```
 **Before State:**
 Service State: TCP Port 5901 was open and running an active Xvnc desktop daemon.
 Security Stance: Cleartext graphical remote control capabilities were completely exposed across the internal staging interface without centralized access controls.
@@ -90,12 +91,13 @@ The web application's configuration directory (/var/www/html/config/) was found 
 directory listing command (ls -la), which showed that the folder was set to be world-writable and world-executable.
 
 **Remediation Commands:**
+```
 docker exec -it server3_db_1 /bin/bash
 find /var/www/html/config -type d -exec chmod 755 {} \;
 find /var/www/html/config -type f -exec chmod 644 {} \;
 chown -R www-data:www-data /var/www/html/config
 exit
-
+```
 **Before State:**
 Permissions Profile: The directory access string was set to drwxrwxrwx (permission level 777).
 
